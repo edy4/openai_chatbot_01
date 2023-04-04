@@ -4,7 +4,7 @@ import streamlit as st
 import openai
 
 # Streamlit Cludの「Secrets」からOpenAI API keyを取得
-openai_key = st.secrets.OpenAIAPI.openai_api_key
+openai.api_key = st.secrets.OpenAIAPI.openai_api_key
 
 # st.session_stateを使いメッセージのやり取りを保存
 if "messages" not in st.session_state:
@@ -20,8 +20,8 @@ def communicate():
     messages.append(user_message)
 
     response = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        messages=messages
+        model = "gpt-3.5-turbo",
+        messages = messages
     )
 
     bot_message = response["choices"][0]["message"]
@@ -34,7 +34,7 @@ def communicate():
 st.title("My AI Assitantだよ")
 st.write("ChatGPT APIを使ったチャットボットでーす")
 
-user_input = st.text_input("メッセージ入れて", key="user_input", on_change=communicate)
+user_input = st.text_input("メッセージ入れて", key = "user_input", on_change = communicate)
 
 if st.session_state["messages"]:
     messages = st.session_state["messages"]
